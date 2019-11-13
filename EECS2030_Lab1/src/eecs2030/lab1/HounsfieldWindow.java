@@ -32,9 +32,94 @@ package eecs2030.lab1;
  * 
  *
  */
-public class HounsfieldWindow {
 
+public class HounsfieldWindow {
+	int level;
+	int width;
+
+	public HounsfieldWindow() {
+		this.level = 0;
+		this.width = 400;
+
+	}
+
+	public HounsfieldWindow(int level, int width) {
+		if (level < Hounsfield.MIN_VALUE) {
+			throw new IllegalArgumentException("value too low");
+
+		}
+		if (level > Hounsfield.MAX_VALUE) {
+			throw new IllegalArgumentException("value too LARGE");
+
+		}
+		if (width < 1) {
+			throw new IllegalArgumentException("width too low");
+
+		}
+		this.level=level;
+		this.width=width;
+		
+	}
+
+	public int getLevel() {
+
+		return this.level;
+	}
+
+	public int getWidth() {
+
+		return this.width;
+	}
+
+	public int setLevel(int level) {
+	
+		int currentlevel = this.level;
+		
+		if (level < Hounsfield.MIN_VALUE) {
+			throw new IllegalArgumentException("value too low");
+
+		}
+		if (level > Hounsfield.MAX_VALUE) {
+			throw new IllegalArgumentException("value too LARGE");
+		}
+this.level=level;
+		return currentlevel;
+
+	}
+
+	public int setWidth(int width) {
+ int currentwidth = this.width; 
+		if (width < 1) {
+			throw new IllegalArgumentException("width too low");
+
+		}
+		this.width = width;
+
+		return currentwidth;
+
+	}
+	public double map(Hounsfield h) {
+		double lo = this.level - (this.width / 2.0);
+		double hi = this.level + (this.width / 2.0);
+		double j;
+		
+		
+		if(h.get()>hi) {
+			j=1;
+		}
+		else if (h.get()<lo) {
+			j=0;
+		}
+		else {
+		j=(h.get() - lo) / this.width;	
+		}
+			
+			
+		
+	return	j;
+	}
 	
 	
 	
+
 }

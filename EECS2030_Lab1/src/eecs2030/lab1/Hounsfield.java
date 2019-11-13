@@ -32,13 +32,13 @@ public class Hounsfield {
 	 * The minimum Hounsfield unit reported by medical CT scanners
 	 * Look up the correct value in the documentation
 	 */
-	public static final int MIN_VALUE = 0;
+	public static final int MIN_VALUE = -1024;
 
 	/**
 	 * The maximum Hounsfield unit reported by medical CT scanners
 	 * Look up the correct value in the documentation
 	 */
-	public static final int MAX_VALUE = 0;
+	public static final int MAX_VALUE = 3071;
 
 	/**
 	 * Initializes this Hounsfield unit to have a value of zero.
@@ -52,7 +52,7 @@ public class Hounsfield {
 		// If you used constructor chaining you will also have to implement
 		// the next constructor before running the JUnit test.
 		
-		this.value = -1000;
+		this.value = 0;
 	}
 
 	/**
@@ -72,7 +72,9 @@ public class Hounsfield {
 		// Alternatively, implement the checkValue method first and call
 		// it from within this constructor to perform the necessary
 		// input validation, and then assign the appropriate value to this.value 
-		
+	checkValue(value);
+		this.value = value;
+			
 	}
 
 	/**
@@ -83,6 +85,7 @@ public class Hounsfield {
 	 *            the Hounsfield unit to copy the value from
 	 */
 	public Hounsfield(Hounsfield other) {
+		this.value= other.value;
 		// Assign a value to this.value by copying other.value
 		
 	}
@@ -102,6 +105,14 @@ public class Hounsfield {
 	private static void checkValue(int value) {
 		// This method is useful for implementing the input validation
 		// needed in the constructor and in the method set
+		if (value<MIN_VALUE) {
+			throw new IllegalArgumentException("value too low");
+			
+		}
+		if (value>MAX_VALUE) {
+			throw new IllegalArgumentException("value too LARGE");
+			
+		}
 
 	}
 
@@ -111,9 +122,11 @@ public class Hounsfield {
 	 * @return the value of this Hounsfield unit
 	 */
 	public int get() {
+		
+		
 		// Change the next line to return the value of this.value
 		
-		return -1;
+		return this.value;
 	}
 
 	/**
@@ -129,9 +142,14 @@ public class Hounsfield {
 	 *             maximum Hounsfield unit reported by medical CT scanners.
 	 */
 	public int set(int value) {
+		checkValue(value);
+		this.value = value;
+		
+		
+		return this.value;
+		
 		// Call checkValue on the first line to perform input validation
 		
-		return 0;
 	}
 
 	/**
@@ -142,7 +160,11 @@ public class Hounsfield {
 	@Override
 	public String toString() {
 		// Change the next line to return the approriate string
+		String j = Integer.toString(value);
+	return j+" HU";
 		
-		return "";
+		
+		
+	
 	}
 }
